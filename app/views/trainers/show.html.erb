@@ -1,3 +1,29 @@
 <h3>Trainer</h3>
 <p>Name: <%= @trainer.name if @trainer.name %></p>
 <p>Email: <%= @trainer.email if @trainer.email %></p>
+<% if !@trainer.pokemons.empty? %>
+  <h4>Pokemons</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Level</th>
+        <th>Health</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @trainer.pokemons.each do |pokemon| %>
+        <tr>
+          <%= render pokemon %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4>This trainer has no pokemons.</h4>
+<% end %>
+
+<% if @trainer.id == current_trainer.id %>
+  <%= button_to "Create Pokemon", new_pokemon_path, :class => "button medium success radius", :method => :get %>
+<% end %>
